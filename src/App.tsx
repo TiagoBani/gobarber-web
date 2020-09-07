@@ -1,5 +1,5 @@
 import React from 'react';
-import SingIn from './Pages/SingIn';
+import SingIn from './pages/SingIn';
 import GlobalStyles from './styles/global';
 
 const App: React.FC = () => (
