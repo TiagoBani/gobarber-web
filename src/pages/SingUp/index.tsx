@@ -12,10 +12,15 @@ import Input from '../../components/Input';
 import { Background, Container, Content } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
 
+interface SingUpFormData {
+  name: string;
+  email: string;
+  password: string;
+}
 const SingUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(async (data: object) => {
+  const handleSubmit = useCallback(async (data: SingUpFormData) => {
     try {
       formRef.current?.setErrors({});
 
@@ -24,7 +29,7 @@ const SingUp: React.FC = () => {
         email: Yup.string()
           .required('E-mail obrigatório.')
           .email('Digite um e-mail válido.'),
-        password: Yup.string().min(6, 'No minimo de 6 digitos.'),
+        password: Yup.string().min(6, 'No minimo 6 digitos.'),
       });
 
       await schema.validate(data, { abortEarly: false });
