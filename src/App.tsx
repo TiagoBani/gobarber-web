@@ -1,5 +1,5 @@
 import React from 'react';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './hooks/AuthContext';
 
 import SingIn from './pages/SingIn';
 import SingUp from './pages/SingUp';
