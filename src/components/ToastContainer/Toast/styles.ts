@@ -65,7 +65,7 @@ export const Container = styled(animated.div)<ContainerProps>`
   }
 
   ${props =>
-    !!props.hasdescription &&
+    !props.hasdescription &&
     css`
       align-items: center;
 

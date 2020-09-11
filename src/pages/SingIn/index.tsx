@@ -5,6 +5,7 @@ import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
 
+import { Link } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 
 import { useAuth } from '../../hooks/auth';
@@ -13,7 +14,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import { Background, Container, Content } from './styles';
+import { Background, Container, Content, AnimatedContainer } from './styles';
 import { useToast } from '../../hooks/toast';
 
 interface SingInFormData {
@@ -42,10 +43,15 @@ const SingIn: React.FC = () => {
         await schema.validate(data, { abortEarly: false });
 
         await signIn({ email: data.email, password: data.password });
+        addToast({
+          title: 'Login realizado com sucesso',
+          type: 'success',
+        });
       } catch (error) {
         if (error instanceof Yup.ValidationError) {
           const errors = getValidationErrors(error);
           formRef.current?.setErrors(errors);
+          return;
         }
 
         addToast({
@@ -62,25 +68,27 @@ const SingIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        <img src={logoImg} alt="Gobarber" />
-        <Form onSubmit={handleSubmit} ref={formRef}>
-          <h1>Faça seu logon</h1>
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
-          <Button type="submit">Entrar</Button>
+        <AnimatedContainer>
+          <img src={logoImg} alt="Gobarber" />
+          <Form onSubmit={handleSubmit} ref={formRef}>
+            <h1>Faça seu logon</h1>
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input
+              name="password"
+              icon={FiLock}
+              type="password"
+              placeholder="Senha"
+            />
+            <Button type="submit">Entrar</Button>
 
-          <a href="forgot">Esqueci minha senha</a>
-        </Form>
+            <a href="forgot">Esqueci minha senha</a>
+          </Form>
 
-        <a href="login">
-          <FiLogIn />
-          Criar conta
-        </a>
+          <Link to="singup">
+            <FiLogIn />
+            Criar conta
+          </Link>
+        </AnimatedContainer>
       </Content>
       <Background />
     </Container>

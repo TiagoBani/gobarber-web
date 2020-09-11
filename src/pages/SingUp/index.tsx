@@ -4,6 +4,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
 
+import { Link } from 'react-router-dom';
 import logoImg from '../../assets/logo.svg';
 
 import Button from '../../components/Button';
@@ -11,6 +12,7 @@ import Input from '../../components/Input';
 
 import { Background, Container, Content } from './styles';
 import getValidationErrors from '../../utils/getValidationErrors';
+import { AnimatedContainer } from '../SingIn/styles';
 
 interface SingUpFormData {
   name: string;
@@ -44,24 +46,26 @@ const SingUp: React.FC = () => {
       <Background />
 
       <Content>
-        <img src={logoImg} alt="Gobarber" />
-        <Form onSubmit={handleSubmit} ref={formRef}>
-          <h1>Faça seu logon</h1>
-          <Input name="name" icon={FiUser} placeholder="Nome" />
-          <Input name="email" icon={FiMail} placeholder="E-mail" />
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
-          <Button type="submit">Cadastrar</Button>
-        </Form>
+        <AnimatedContainer>
+          <img src={logoImg} alt="Gobarber" />
+          <Form onSubmit={handleSubmit} ref={formRef}>
+            <h1>Faça seu logon</h1>
+            <Input name="name" icon={FiUser} placeholder="Nome" />
+            <Input name="email" icon={FiMail} placeholder="E-mail" />
+            <Input
+              name="password"
+              icon={FiLock}
+              type="password"
+              placeholder="Senha"
+            />
+            <Button type="submit">Cadastrar</Button>
+          </Form>
 
-        <a href="login">
-          <FiArrowLeft />
-          Voltar para Logon
-        </a>
+          <Link to="/">
+            <FiArrowLeft />
+            Voltar para Logon
+          </Link>
+        </AnimatedContainer>
       </Content>
     </Container>
   );
