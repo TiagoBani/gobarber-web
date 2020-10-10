@@ -30,6 +30,8 @@ const ForgotPassword: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: ForgotPasswordFormData) => {
       try {
+        setLoaging(true);
+
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
@@ -41,7 +43,7 @@ const ForgotPassword: React.FC = () => {
         await schema.validate(data, { abortEarly: false });
 
         await api.post('/password/forgot', { email: data.email });
-        // 3:33
+
         addToast({
           title: 'E-mail de recuperação de senha enviado',
           description:
@@ -61,6 +63,8 @@ const ForgotPassword: React.FC = () => {
           description:
             'Ocorreu um erro ao tentar realizar a recuperação de senha, tente novamente.',
         });
+      } finally {
+        setLoaging(false);
       }
     },
     [addToast],
@@ -74,7 +78,9 @@ const ForgotPassword: React.FC = () => {
           <Form onSubmit={handleSubmit} ref={formRef}>
             <h1>Recuperar senha</h1>
             <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Button type="submit">Recuperar</Button>
+            <Button loading={loading} type="submit">
+              Recuperar
+            </Button>
           </Form>
 
           <Link to="singin">
