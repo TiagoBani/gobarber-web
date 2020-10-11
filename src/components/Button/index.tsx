@@ -1,5 +1,4 @@
 import React, { ButtonHTMLAttributes } from 'react';
-import { boolean } from 'yup';
 
 import { Container } from './styles';
 
@@ -11,7 +10,6 @@ const Button: React.FC<ButtonProps> = ({ loading, children, ...rest }) => {
   return (
     <Container type="button" {...rest}>
       {loading ? 'Carregando ...' : children}
-      {/* {children} */}
     </Container>
   );
 };

@@ -23,14 +23,14 @@ interface ForgotPasswordFormData {
 const ForgotPassword: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
-  const [loading, setLoaging] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: ForgotPasswordFormData) => {
       try {
-        setLoaging(true);
+        setLoading(true);
 
         formRef.current?.setErrors({});
 
@@ -64,7 +64,7 @@ const ForgotPassword: React.FC = () => {
             'Ocorreu um erro ao tentar realizar a recuperação de senha, tente novamente.',
         });
       } finally {
-        setLoaging(false);
+        setLoading(false);
       }
     },
     [addToast],
@@ -83,7 +83,7 @@ const ForgotPassword: React.FC = () => {
             </Button>
           </Form>
 
-          <Link to="singin">
+          <Link to="/">
             <FiLogIn />
             Voltar ao login
           </Link>
