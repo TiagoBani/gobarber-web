@@ -160,6 +160,10 @@ export const NextAppointment = styled.div`
 export const Section = styled.section`
   margin-top: 48px;
 
+  > p {
+    color: #999591;
+  }
+
   > strong {
     color: #999591;
     font-size: 20px;
@@ -190,6 +194,8 @@ export const Appointment = styled.div`
     align-items: center;
 
     color: #f4ede8;
+
+    width: 70px;
 
     svg {
       color: #ff9000;
