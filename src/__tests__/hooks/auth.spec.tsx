@@ -1,18 +1,24 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import MockAdapter from 'axios-mock-adapter';
-import { AuthProvider, useAuth } from '../../hooks/auth';
+import { AuthProvider, useAuth, User } from '../../hooks/auth';
 import api from '../../services/api';
 
 const apiMock = new MockAdapter(api);
 
+let user: User;
 describe('Auth hook', () => {
+  beforeEach(() => {
+    user = {
+      id: 'user-123',
+      name: 'John Doe',
+      email: 'johndoe@example.com',
+      avatar_url: 'avatar-123.jpg',
+    };
+  });
+
   it('should be able to sign in', async () => {
     const apiResponse = {
-      user: {
-        id: 'user-123',
-        name: 'John Doe',
-        email: 'johndoe@example.com',
-      },
+      user,
       token: 'token-123',
     };
     apiMock.onPost('sessions').reply(200, apiResponse);
@@ -47,11 +53,7 @@ describe('Auth hook', () => {
         case '@GoBarber:token':
           return 'token-123';
         case '@GoBarber:user':
-          return JSON.stringify({
-            id: 'user-123',
-            name: 'John Doe',
-            email: 'johndoe@example.com',
-          });
+          return JSON.stringify(user);
         default:
           return null;
       }
@@ -70,11 +72,7 @@ describe('Auth hook', () => {
         case '@GoBarber:token':
           return 'token-123';
         case '@GoBarber:user':
-          return JSON.stringify({
-            id: 'user-123',
-            name: 'John Doe',
-            email: 'johndoe@example.com',
-          });
+          return JSON.stringify(user);
         default:
           return null;
       }
@@ -100,13 +98,6 @@ describe('Auth hook', () => {
     const { result } = renderHook(() => useAuth(), {
       wrapper: AuthProvider,
     });
-
-    const user = {
-      id: 'user-123',
-      name: 'John Doe',
-      email: 'johndoe@example.com',
-      avatar_url: 'avatar-123.jpg',
-    };
 
     act(() => {
       result.current.updateUser(user);
