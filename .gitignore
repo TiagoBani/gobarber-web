@@ -1,3 +1,9 @@
+build
+.env
+/.pnp
+.pnp.js
+
+
 # ide
 .vscode
 .idea
