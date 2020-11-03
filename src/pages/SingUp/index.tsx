@@ -76,7 +76,7 @@ const SingUp: React.FC = () => {
         <AnimatedContainer>
           <img src={logoImg} alt="Gobarber" />
           <Form onSubmit={handleSubmit} ref={formRef}>
-            <h1>Faça seu logon</h1>
+            <h1>Crie seu login</h1>
             <Input name="name" icon={FiUser} placeholder="Nome" />
             <Input name="email" icon={FiMail} placeholder="E-mail" />
             <Input
